@@ -1,4 +1,6 @@
-   <div class="form-group">
+//Add label
+
+<div class="form-group">
                     <div class="form-row">
                         <div>
                             <label for="linkedin">LinkedIn</label>
