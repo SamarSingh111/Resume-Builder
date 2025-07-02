@@ -1,0 +1,31 @@
+   <div class="form-group">
+                    <div class="form-row">
+                        <div>
+                            <label for="linkedin">LinkedIn</label>
+                            <input type="url" id="linkedin" placeholder="linkedin.com/in/johndoe">
+                        </div>
+                        <div>
+                            <label for="portfolio">Portfolio/Website</label>
+                            <input type="url" id="portfolio" placeholder="johndoe.com">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-title">
+                    <i class="fas fa-bullseye"></i>
+                    Professional Summary
+                </div>
+
+                <div class="form-group">
+                    <label for="summary">Professional Summary</label>
+                    <textarea id="summary" placeholder="Write a brief summary of your professional background and career objectives..."></textarea>
+                </div>
+
+                <hr class="section-divider">
+
+                <div class="section-title">
+                    <i class="fas fa-briefcase"></i>
+                    Work Experience
+                </div>
