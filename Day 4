@@ -1,1 +1,44 @@
+//Html code
 
+<button type="button" class="btn btn-secondary add-more" onclick="addExperience()">
+                    <i class="fas fa-plus"></i> Add Work Experience
+                </button>
+
+                <hr class="section-divider">
+
+                <div class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Education
+                </div>
+
+                <div id="education-container">
+                    <div class="dynamic-section">
+                        <button type="button" class="btn btn-danger remove-btn" onclick="removeSection(this)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div>
+                                    <label>Degree</label>
+                                    <input type="text" class="degree" placeholder="Bachelor of Science">
+                                </div>
+                                <div>
+                                    <label>Field of Study</label>
+                                    <input type="text" class="field" placeholder="Computer Science">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div>
+                                    <label>Institution</label>
+                                    <input type="text" class="institution" placeholder="University of Technology">
+                                </div>
+                                <div>
+                                    <label>Graduation Year</label>
+                                    <input type="text" class="grad-year" placeholder="2020">
+                                </div>
+                            </div>
+                        </div>
