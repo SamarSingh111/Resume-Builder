@@ -1,0 +1,48 @@
+// Html code 
+
+<div class="resume-section" id="summarySection" style="display: none;">
+                        <div class="resume-section-title">Professional Summary</div>
+                        <div id="previewSummary"></div>
+                    </div>
+
+                    <div class="resume-section" id="experienceSection" style="display: none;">
+                        <div class="resume-section-title">Work Experience</div>
+                        <div id="previewExperience"></div>
+                    </div>
+
+                    <div class="resume-section" id="educationSection" style="display: none;">
+                        <div class="resume-section-title">Education</div>
+                        <div id="previewEducation"></div>
+                    </div>
+
+                    <div class="resume-section" id="skillsSection" style="display: none;">
+                        <div class="resume-section-title">Skills</div>
+                        <div class="skills-list" id="previewSkills"></div>
+                    </div>
+
+                    <div class="resume-section" id="projectsSection" style="display: none;">
+                        <div class="resume-section-title">Projects</div>
+                        <div id="previewProjects"></div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <button class="download-btn" onclick="downloadResume()" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download Resume as PDF
+                    </button>
+                    <div id="downloadStatus" style="margin-top: 10px; font-size: 14px; color: #667eea; display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Generating PDF...
+                    </div>
+                    
+                    <!-- Share Section -->
+                    <div class="share-section">
+                        <h4 style="margin: 30px 0 15px 0; color: #5a67d8; text-align: center;">
+                            <i class="fas fa-share-alt"></i> Share Your Resume
+                        </h4>
+                        
+                        <div class="share-buttons">
+                            <button class="share-btn email-btn" onclick="shareViaEmail()" title="Share via Email">
+                                <i class="fas fa-envelope"></i>
+                                <span>Email</span>
+                            </button>
+                            
