@@ -1,0 +1,27 @@
+//Html code
+
+ <div class="resume-section" id="summarySection" style="display: none;">
+                        <div class="resume-section-title">Professional Summary</div>
+                        <div id="previewSummary"></div>
+                    </div>
+
+                    <div class="resume-section" id="experienceSection" style="display: none;">
+                        <div class="resume-section-title">Work Experience</div>
+                        <div id="previewExperience"></div>
+                    </div>
+
+                    <div class="resume-section" id="educationSection" style="display: none;">
+                        <div class="resume-section-title">Education</div>
+                        <div id="previewEducation"></div>
+                    </div>
+
+                    <div class="resume-section" id="skillsSection" style="display: none;">
+                        <div class="resume-section-title">Skills</div>
+                        <div class="skills-list" id="previewSkills"></div>
+                    </div>
+
+                    <div class="resume-section" id="projectsSection" style="display: none;">
+                        <div class="resume-section-title">Projects</div>
+                        <div id="previewProjects"></div>
+                    </div>
+                </div>
