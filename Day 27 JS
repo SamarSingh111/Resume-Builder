@@ -1,1 +1,98 @@
+ const resumeData = {
+        personalInfo: {
+            fullName: document.getElementById('fullName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            location: document.getElementById('location').value,
+            linkedin: document.getElementById('linkedin').value,
+            portfolio: document.getElementById('portfolio').value
+        },
+        summary: document.getElementById('summary').value,
+        skills: document.getElementById('skills').value,
+        experience: [],
+        education: [],
+        projects: []
+    };
+    
+    // Save experience
+    document.getElementById('experience-container').querySelectorAll('.dynamic-section').forEach(exp => {
+        resumeData.experience.push({
+            jobTitle: exp.querySelector('.job-title').value,
+            company: exp.querySelector('.company').value,
+            startDate: exp.querySelector('.start-date').value,
+            endDate: exp.querySelector('.end-date').value,
+            description: exp.querySelector('.job-description').value
+        });
+    });
+    
+    // Save education
+    document.getElementById('education-container').querySelectorAll('.dynamic-section').forEach(edu => {
+        resumeData.education.push({
+            degree: edu.querySelector('.degree').value,
+            field: edu.querySelector('.field').value,
+            institution: edu.querySelector('.institution').value,
+            gradYear: edu.querySelector('.grad-year').value,
+            gpa: edu.querySelector('.gpa').value
+        });
+    });
+    
+    // Save projects
+    document.getElementById('projects-container').querySelectorAll('.dynamic-section').forEach(proj => {
+        resumeData.projects.push({
+            name: proj.querySelector('.project-name').value,
+            tech: proj.querySelector('.project-tech').value,
+            description: proj.querySelector('.project-description').value,
+            link: proj.querySelector('.project-link').value
+        });
+    });
+    
+    localStorage.setItem('resumeBuilderData', JSON.stringify(resumeData));
+    showShareStatus('Resume saved successfully! 💾', 'success');
+}
 
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem('resumeBuilderData');
+    
+    if (!savedData) {
+        showShareStatus('No saved resume found! 🤷‍♂️', 'error');
+        return;
+    }
+    
+    try {
+        const resumeData = JSON.parse(savedData);
+        
+        // Load personal info
+        document.getElementById('fullName').value = resumeData.personalInfo.fullName || '';
+        document.getElementById('email').value = resumeData.personalInfo.email || '';
+        document.getElementById('phone').value = resumeData.personalInfo.phone || '';
+        document.getElementById('location').value = resumeData.personalInfo.location || '';
+        document.getElementById('linkedin').value = resumeData.personalInfo.linkedin || '';
+        document.getElementById('portfolio').value = resumeData.personalInfo.portfolio || '';
+        
+        // Load summary and skills
+        document.getElementById('summary').value = resumeData.summary || '';
+        document.getElementById('skills').value = resumeData.skills || '';
+        
+        // Clear existing sections
+        document.getElementById('experience-container').innerHTML = '';
+        document.getElementById('education-container').innerHTML = '';
+        document.getElementById('projects-container').innerHTML = '';
+        
+        // Load experience
+        resumeData.experience.forEach((exp, index) => {
+            if (index === 0) addExperience();
+            else addExperience();
+            
+            const expSection = document.getElementById('experience-container').lastElementChild;
+            expSection.querySelector('.job-title').value = exp.jobTitle || '';
+            expSection.querySelector('.company').value = exp.company || '';
+            expSection.querySelector('.start-date').value = exp.startDate || '';
+            expSection.querySelector('.end-date').value = exp.endDate || '';
+            expSection.querySelector('.job-description').value = exp.description || '';
+        });
+        
+        // Load education
+        resumeData.education.forEach((edu, index) => {
+            if (index === 0) addEducation();
+            else addEducation();
+            
