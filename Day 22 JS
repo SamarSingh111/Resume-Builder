@@ -1,1 +1,114 @@
+// JS CODE
 
+  // Get data from form
+    const fullName = document.getElementById('fullName').value || 'Your Name';
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const location = document.getElementById('location').value;
+    const linkedin = document.getElementById('linkedin').value;
+    const portfolio = document.getElementById('portfolio').value;
+    const summary = document.getElementById('summary').value;
+    
+    let yPosition = 20;
+    const leftMargin = 20;
+    const pageWidth = doc.internal.pageSize.width;
+    
+    // Helper function to add text with word wrapping
+    function addText(text, x, y, maxWidth, fontSize = 12, style = 'normal') {
+        doc.setFontSize(fontSize);
+        doc.setFont('helvetica', style);
+        const lines = doc.splitTextToSize(text, maxWidth);
+        doc.text(lines, x, y);
+        return y + (lines.length * (fontSize * 0.4));
+    }
+    
+    // Header - Name
+    doc.setFontSize(24);
+    doc.setFont('helvetica', 'bold');
+    doc.text(fullName.toUpperCase(), leftMargin, yPosition);
+    yPosition += 15;
+    
+    // Contact Information
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    let contactInfo = [];
+    if (email) contactInfo.push(email);
+    if (phone) contactInfo.push(phone);
+    if (location) contactInfo.push(location);
+    if (linkedin) contactInfo.push(linkedin);
+    if (portfolio) contactInfo.push(portfolio);
+    
+    if (contactInfo.length > 0) {
+        doc.text(contactInfo.join(' | '), leftMargin, yPosition);
+        yPosition += 15;
+    }
+    
+    // Add line separator
+    doc.setLineWidth(0.5);
+    doc.line(leftMargin, yPosition, pageWidth - leftMargin, yPosition);
+    yPosition += 10;
+    
+    // Professional Summary
+    if (summary.trim()) {
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('PROFESSIONAL SUMMARY', leftMargin, yPosition);
+        yPosition += 8;
+        
+        yPosition = addText(summary, leftMargin, yPosition, pageWidth - 40, 11);
+        yPosition += 10;
+    }
+    
+    // Work Experience
+    const experiences = document.getElementById('experience-container').querySelectorAll('.dynamic-section');
+    if (experiences.length > 0) {
+        let hasValidExperience = false;
+        
+        experiences.forEach(exp => {
+            const jobTitle = exp.querySelector('.job-title').value;
+            const company = exp.querySelector('.company').value;
+            
+            if (jobTitle || company) {
+                if (!hasValidExperience) {
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('WORK EXPERIENCE', leftMargin, yPosition);
+                    yPosition += 8;
+                    hasValidExperience = true;
+                }
+                
+                const startDate = exp.querySelector('.start-date').value;
+                const endDate = exp.querySelector('.end-date').value;
+                const description = exp.querySelector('.job-description').value;
+                
+                // Job title and company
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(`${jobTitle || 'Job Title'} - ${company || 'Company'}`, leftMargin, yPosition);
+                yPosition += 6;
+                
+                // Dates
+                if (startDate || endDate) {
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'italic');
+                    doc.text(`${startDate || ''} - ${endDate || ''}`, leftMargin, yPosition);
+                    yPosition += 6;
+                }
+                
+                // Description
+                if (description) {
+                    yPosition = addText(description, leftMargin, yPosition, pageWidth - 40, 10);
+                }
+                
+                yPosition += 8;
+                
+                // Check if we need a new page
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            }
+        });
+        
+        if (hasValidExperience) yPosition += 5;
+    }
