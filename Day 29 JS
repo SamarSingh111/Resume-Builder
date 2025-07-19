@@ -1,1 +1,24 @@
+  // Create floating icons
+    const icons = ['📄', '💼', '🎯', '⚡', '🚀', '💎', '🌟', '✨'];
+    
+    for (let i = 0; i < 6; i++) {
+        const floatingIcon = document.createElement('div');
+        floatingIcon.className = 'floating-icon';
+        floatingIcon.textContent = icons[Math.floor(Math.random() * icons.length)];
+        floatingIcon.style.cssText = `
+            position: absolute;
+            font-size: ${Math.random() * 20 + 15}px;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            opacity: 0.3;
+            pointer-events: none;
+            animation: float ${Math.random() * 10 + 10}s ease-in-out infinite;
+            animation-delay: ${Math.random() * 5}s;
+            z-index: 1;
+        `;
+        header.appendChild(floatingIcon);
+    }
+}
 
+function addHeaderInteractivity() {
+    const header = document.querySelector('.header h1');
