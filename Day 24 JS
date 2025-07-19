@@ -1,1 +1,132 @@
+// JS CODE
 
+    // Education
+    const educations = document.getElementById('education-container').querySelectorAll('.dynamic-section');
+    if (educations.length > 0) {
+        let hasValidEducation = false;
+        
+        educations.forEach(edu => {
+            const degree = edu.querySelector('.degree').value;
+            const institution = edu.querySelector('.institution').value;
+            
+            if (degree || institution) {
+                if (!hasValidEducation) {
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('EDUCATION', leftMargin, yPosition);
+                    yPosition += 8;
+                    hasValidEducation = true;
+                }
+                
+                const field = edu.querySelector('.field').value;
+                const gradYear = edu.querySelector('.grad-year').value;
+                const gpa = edu.querySelector('.gpa').value;
+                
+                // Degree and field
+                const fullDegree = field ? `${degree} in ${field}` : degree;
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(fullDegree || 'Degree', leftMargin, yPosition);
+                yPosition += 6;
+                
+                // Institution and year
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'normal');
+                doc.text(`${institution || 'Institution'} ${gradYear ? `(${gradYear})` : ''}`, leftMargin, yPosition);
+                yPosition += 6;
+                
+                // GPA
+                if (gpa) {
+                    doc.text(`GPA: ${gpa}`, leftMargin, yPosition);
+                    yPosition += 6;
+                }
+                
+                yPosition += 5;
+            }
+        });
+        
+        if (hasValidEducation) yPosition += 5;
+    }
+    
+    // Skills
+    const skills = document.getElementById('skills').value;
+    if (skills.trim()) {
+        doc.setFontSize(14);
+        doc.setFont('helvetica', 'bold');
+        doc.text('SKILLS', leftMargin, yPosition);
+        yPosition += 8;
+        
+        const skillsList = skills.split(',').map(skill => skill.trim()).filter(skill => skill);
+        yPosition = addText(skillsList.join(', '), leftMargin, yPosition, pageWidth - 40, 11);
+        yPosition += 10;
+    }
+    
+    // Projects
+    const projects = document.getElementById('projects-container').querySelectorAll('.dynamic-section');
+    if (projects.length > 0) {
+        let hasValidProjects = false;
+        
+        projects.forEach(proj => {
+            const name = proj.querySelector('.project-name').value;
+            const description = proj.querySelector('.project-description').value;
+            
+            if (name || description) {
+                if (!hasValidProjects) {
+                    // Check if we need a new page
+                    if (yPosition > 220) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+                    
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('PROJECTS', leftMargin, yPosition);
+                    yPosition += 8;
+                    hasValidProjects = true;
+                }
+                
+                const tech = proj.querySelector('.project-tech').value;
+                const link = proj.querySelector('.project-link').value;
+                
+                // Project name
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'bold');
+                doc.text(name || 'Project Name', leftMargin, yPosition);
+                yPosition += 6;
+                
+                // Technologies
+                if (tech) {
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'italic');
+                    doc.text(`Technologies: ${tech}`, leftMargin, yPosition);
+                    yPosition += 6;
+                }
+                
+                // Description
+                if (description) {
+                    yPosition = addText(description, leftMargin, yPosition, pageWidth - 40, 10);
+                }
+                
+                // Link
+                if (link) {
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(`Link: ${link}`, leftMargin, yPosition);
+                    yPosition += 6;
+                }
+                
+                yPosition += 8;
+                
+                // Check if we need a new page
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 20;
+                }
+            }
+        });
+    }
+    
+    // Save the PDF
+    const fileName = `${fullName.replace(/\s+/g, '_')}_Resume.pdf`;
+    doc.save(fileName);
+}
