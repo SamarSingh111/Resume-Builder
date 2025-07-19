@@ -1,0 +1,69 @@
+// JS Code
+
+  if (hasEducation) {
+        educationSection.style.display = 'block';
+        previewEducation.innerHTML = html;
+    } else {
+        educationSection.style.display = 'none';
+    }
+}
+
+function updateSkills() {
+    const skills = document.getElementById('skills').value;
+    const skillsSection = document.getElementById('skillsSection');
+    const previewSkills = document.getElementById('previewSkills');
+    
+    if (skills.trim()) {
+        skillsSection.style.display = 'block';
+        const skillsList = skills.split(',').map(skill => skill.trim()).filter(skill => skill);
+        const skillsHtml = skillsList.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+        previewSkills.innerHTML = skillsHtml;
+    } else {
+        skillsSection.style.display = 'none';
+    }
+}
+
+function updateProjects() {
+    const projectsContainer = document.getElementById('projects-container');
+    const previewProjects = document.getElementById('previewProjects');
+    const projectsSection = document.getElementById('projectsSection');
+    
+    const projects = projectsContainer.querySelectorAll('.dynamic-section');
+    let hasProjects = false;
+    let html = '';
+    
+    projects.forEach(proj => {
+        const name = proj.querySelector('.project-name').value;
+        const tech = proj.querySelector('.project-tech').value;
+        const description = proj.querySelector('.project-description').value;
+        const link = proj.querySelector('.project-link').value;
+        
+        if (name || description) {
+            hasProjects = true;
+            html += `
+                <div class="resume-item">
+                    <div class="resume-item-title">${name || 'Project Name'}</div>
+                    ${tech ? `<div class="resume-item-subtitle">${tech}</div>` : ''}
+                    ${description ? `<div class="resume-item-description">${description}</div>` : ''}
+                    ${link ? `<div class="resume-item-description"><a href="${link}" target="_blank">${link}</a></div>` : ''}
+                </div>
+            `;
+        }
+    });
+    
+    if (hasProjects) {
+        projectsSection.style.display = 'block';
+        previewProjects.innerHTML = html;
+    } else {
+        projectsSection.style.display = 'none';
+    }
+}
+
+function addExperience() {
+    const container = document.getElementById('experience-container');
+    const newExperience = document.createElement('div');
+    newExperience.className = 'dynamic-section';
+    newExperience.innerHTML = `
+        <button type="button" class="btn btn-danger remove-btn" onclick="removeSection(this)">
+            <i class="fas fa-times"></i>
+        </button>
