@@ -1,1 +1,60 @@
 
+  const eduSection = document.getElementById('education-container').lastElementChild;
+            eduSection.querySelector('.degree').value = edu.degree || '';
+            eduSection.querySelector('.field').value = edu.field || '';
+            eduSection.querySelector('.institution').value = edu.institution || '';
+            eduSection.querySelector('.grad-year').value = edu.gradYear || '';
+            eduSection.querySelector('.gpa').value = edu.gpa || '';
+        });
+        
+        // Load projects
+        resumeData.projects.forEach((proj, index) => {
+            if (index === 0) addProject();
+            else addProject();
+            
+            const projSection = document.getElementById('projects-container').lastElementChild;
+            projSection.querySelector('.project-name').value = proj.name || '';
+            projSection.querySelector('.project-tech').value = proj.tech || '';
+            projSection.querySelector('.project-description').value = proj.description || '';
+            projSection.querySelector('.project-link').value = proj.link || '';
+        });
+        
+        // Add default sections if none exist
+        if (resumeData.experience.length === 0) addExperience();
+        if (resumeData.education.length === 0) addEducation();
+        if (resumeData.projects.length === 0) addProject();
+        
+        updatePreview();
+        showShareStatus('Resume loaded successfully! ✅', 'success');
+        
+    } catch (error) {
+        showShareStatus('Error loading saved resume! ❌', 'error');
+    }
+}
+
+function showShareStatus(message, type) {
+    const statusDiv = document.getElementById('shareStatus');
+    statusDiv.textContent = message;
+    statusDiv.className = `share-status-${type}`;
+    statusDiv.style.display = 'block';
+    
+    setTimeout(() => {
+        statusDiv.style.display = 'none';
+    }, 3000);
+}
+
+// Auto-save functionality
+setInterval(() => {
+    if (document.getElementById('fullName').value.trim()) {
+        saveToLocalStorage();
+    }
+}, 60000); // Auto-save every minute
+
+// Header Animation Effects
+document.addEventListener('DOMContentLoaded', function() {
+    createFloatingElements();
+    addHeaderInteractivity();
+});
+
+function createFloatingElements() {
+    const header = document.querySelector('.header');
