@@ -1,1 +1,98 @@
+  // Add event listeners to new inputs
+    newEducation.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', updatePreview);
+    });
+}
 
+function addProject() {
+    const container = document.getElementById('projects-container');
+    const newProject = document.createElement('div');
+    newProject.className = 'dynamic-section';
+    newProject.innerHTML = `
+        <button type="button" class="btn btn-danger remove-btn" onclick="removeSection(this)">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" class="project-name" placeholder="E-commerce Website">
+        </div>
+
+        <div class="form-group">
+            <label>Technologies Used</label>
+            <input type="text" class="project-tech" placeholder="React, Node.js, MongoDB">
+        </div>
+
+        <div class="form-group">
+            <label>Project Description</label>
+            <textarea class="project-description" placeholder="Describe your project and your role..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Project Link (Optional)</label>
+            <input type="url" class="project-link" placeholder="https://github.com/username/project">
+        </div>
+    `;
+    container.appendChild(newProject);
+    
+    // Add event listeners to new inputs
+    newProject.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', updatePreview);
+    });
+}
+
+function removeSection(button) {
+    const section = button.closest('.dynamic-section');
+    section.remove();
+    updatePreview();
+}
+
+function downloadResume() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    const downloadStatus = document.getElementById('downloadStatus');
+    
+    // Show loading state
+    downloadBtn.disabled = true;
+    downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+    downloadStatus.style.display = 'block';
+    
+    // Check if jsPDF is available, if not, load it dynamically
+    if (typeof window.jsPDF === 'undefined') {
+        loadJsPDF().then(() => {
+            generatePDF();
+            resetDownloadButton();
+        }).catch(() => {
+            alert('Failed to load PDF library. Please try again.');
+            resetDownloadButton();
+        });
+    } else {
+        generatePDF();
+        resetDownloadButton();
+    }
+}
+
+function resetDownloadButton() {
+    const downloadBtn = document.getElementById('downloadBtn');
+    const downloadStatus = document.getElementById('downloadStatus');
+    
+    // Reset button state
+    setTimeout(() => {
+        downloadBtn.disabled = false;
+        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download Resume as PDF';
+        downloadStatus.style.display = 'none';
+    }, 1000);
+}
+
+function loadJsPDF() {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = () => resolve();
+        script.onerror = () => reject();
+        document.head.appendChild(script);
+    });
+}
+
+function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
