@@ -1,1 +1,82 @@
+//JS Code
 
+  <div class="form-group">
+            <div class="form-row">
+                <div>
+                    <label>Job Title</label>
+                    <input type="text" class="job-title" placeholder="Software Engineer">
+                </div>
+                <div>
+                    <label>Company</label>
+                    <input type="text" class="company" placeholder="Tech Corp">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <div>
+                    <label>Start Date</label>
+                    <input type="text" class="start-date" placeholder="Jan 2020">
+                </div>
+                <div>
+                    <label>End Date</label>
+                    <input type="text" class="end-date" placeholder="Present">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Job Description</label>
+            <textarea class="job-description" placeholder="Describe your responsibilities and achievements..."></textarea>
+        </div>
+    `;
+    container.appendChild(newExperience);
+    
+    // Add event listeners to new inputs
+    newExperience.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', updatePreview);
+    });
+}
+
+function addEducation() {
+    const container = document.getElementById('education-container');
+    const newEducation = document.createElement('div');
+    newEducation.className = 'dynamic-section';
+    newEducation.innerHTML = `
+        <button type="button" class="btn btn-danger remove-btn" onclick="removeSection(this)">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="form-group">
+            <div class="form-row">
+                <div>
+                    <label>Degree</label>
+                    <input type="text" class="degree" placeholder="Bachelor of Science">
+                </div>
+                <div>
+                    <label>Field of Study</label>
+                    <input type="text" class="field" placeholder="Computer Science">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <div>
+                    <label>Institution</label>
+                    <input type="text" class="institution" placeholder="University of Technology">
+                </div>
+                <div>
+                    <label>Graduation Year</label>
+                    <input type="text" class="grad-year" placeholder="2020">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>GPA (Optional)</label>
+            <input type="text" class="gpa" placeholder="3.8/4.0">
+        </div>
+    `;
+    container.appendChild(newEducation);
